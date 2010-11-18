@@ -1,4 +1,4 @@
-pyshapefile is a set of python classes that can be used to read ESRI shapefiles. The initial development was funded by Nicholas de Monchaux, nicholas.demonchaux.com, as part of the Local Code project, an urban design research project conducted at the University of California Berkeley.
+pyshapefile is a set of python classes that can be used to read ESRI shapefiles. The development was conducted with (and funded by) Nicholas de Monchaux, http://nicholas.demonchaux.com, as part of the Local Code project, an urban design research project conducted at the University of California Berkeley.
 
 The classes were extended from the shpUtils library written by Zachary Forest Johnson, and are similarly dependent on the dbfUtils module by Raymond Hettinger.
 
