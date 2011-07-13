@@ -8,7 +8,6 @@ Zachary Forest Johnson
 which was later edited by
 Michael Geary
 '''
-
 import dbfUtils
 from struct import unpack
 from ShpFeature import *
@@ -55,7 +54,7 @@ class ShpFile(object):
     '''
     This class is instantiated using the file path to a shapefile (must contain the .shp file extension), and as soon as it is instantiated, it reads the entire shapefile.
     Once instantiated, it contains objects for each feature based on shape type (the objects are accessible using the
-    .records attribute), and allows access to the shapefile data at mutliple levels.
+    .records attribute), and allows access to the shapefile data at multiple levels.
     '''
 
     def __init__(self,filePath):
@@ -138,6 +137,7 @@ class ShpFile(object):
             zArray.append(z)
         return zArray
 
+
     def setZfield(self, fieldKey=None, zValue=0.0):
         # this method will erase any existing
         # z data of the geometry
@@ -189,4 +189,3 @@ class ShpFile(object):
             # get shapeType and creates appropriate feature
             feature = classTypeDict[self.shapeType](self,iterator)
             return feature
-
