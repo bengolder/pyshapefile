@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 #!/usr/bin/env python
 
 # dbfUtils.py
 # By Raymond Hettinger
 # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/362715
 
->>>>>>> 58b8cf278300701728d77b27b3e56bd01269fd08
 import struct, datetime, decimal, itertools
 
 def dbfreader(f):

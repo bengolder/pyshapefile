@@ -58,20 +58,6 @@ class ShpFeature(object):
         for i in range(len(indexSpread) - 1):
             chunks.append(pointlist[indexSpread[i]:indexSpread[i+1]])
         return chunks
-
-
-
-class ShpPoint(ShpFeature):
-
-    def __init__(self, ShpFile, recordNumber):
-        
-    def shapelyFormat(self):
-        if self.parts > 1:
-            return self.chopParts(self.parts, self.points)[0]
-        elif self.numPoints == 1:
-            return self.points[0]
-        else:
-            return self.points
         
 class ShpPoint(ShpFeature):
     
@@ -84,6 +70,14 @@ class ShpPoint(ShpFeature):
         self.x = self.points[0][0]
         self.y = self.points[0][1]
         self.points3D = [(self.x,self.y,0.0)]
+
+    def shapelyFormat(self):
+        if self.parts > 1:
+            return self.chopParts(self.parts, self.points)[0]
+        elif self.numPoints == 1:
+            return self.points[0]
+        else:
+            return self.points
 
 class ShpPointM(ShpPoint):
     def __init__(self,ShpFile, recordNumber):
@@ -108,9 +102,9 @@ class ShpMultiPoint(ShpFeature):
         ShpFeature.__init__(self, ShpFile, recordNumber)
         self.parts[0]
         self.numParts = 1
-        self.boundingBox = self.shpFile._readBoundingBox()
-        self.numPoints = self.shpFile._readNumPoints()
-        self.points = self.shpFile._readPoints(self.numPoints)
+        self.boundingBox = self.shpFile.__readBoundingBox()
+        self.numPoints = self.shpFile.__readNumPoints()
+        self.points = self.shpFile.__readPoints(self.numPoints)
 
 class ShpMultiPointM(ShpMultiPoint):
 
@@ -137,11 +131,11 @@ class ShpPolyLine(ShpFeature):
 
         ShpFeature.__init__(self, ShpFile, recordNumber)
 
-        self.boundingBox = self.shpFile._readBoundingBox()
-        self.numParts = self.shpFile._readNumParts()
-        self.numPoints = self.shpFile._readNumPoints()
-        self.parts = self.shpFile._readParts(self.numParts)
-        self.points = self.shpFile._readPoints(self.numPoints)
+        self.boundingBox = self.shpFile.__readBoundingBox()
+        self.numParts = self.shpFile.__readNumParts()
+        self.numPoints = self.shpFile.__readNumPoints()
+        self.parts = self.shpFile.__readParts(self.numParts)
+        self.points = self.shpFile.__readPoints(self.numPoints)
 
 class ShpPolyLineM(ShpPolyLine):
 
@@ -170,11 +164,11 @@ class ShpPolygon(ShpFeature):
 
         ShpFeature.__init__(self, ShpFile, recordNumber)
 
-        self.boundingBox = self.shpFile._readBoundingBox()
-        self.numParts = self.shpFile._readNumParts()
-        self.numPoints = self.shpFile._readNumPoints()
-        self.parts = self.shpFile._readParts(self.numParts)
-        self.points = self.shpFile._readPoints(self.numPoints)
+        self.boundingBox = self.shpFile.__readBoundingBox()
+        self.numParts = self.shpFile.__readNumParts()
+        self.numPoints = self.shpFile.__readNumPoints()
+        self.parts = self.shpFile.__readParts(self.numParts)
+        self.points = self.shpFile.__readPoints(self.numPoints)
 
 class ShpPolygonM(ShpPolygon):
 
@@ -203,12 +197,12 @@ class ShpMultiPatch(ShpFeature):
 
         ShpFeature.__init__(self, ShpFile, recordNumber)
 
-        self.boundingBox = self.shpFile._readBoundingBox()
-        self.numParts = self.shpFile._readNumParts()
-        self.numPoints = self.shpFile._readNumPoints()
-        self.parts = self.shpFile._readParts(self.numParts)
-        self.partTypes = self.shpFile._readParts(self.numParts)
-        self.points = self.shpFile._readPoints(self.numPoints)
+        self.boundingBox = self.shpFile.__readBoundingBox()
+        self.numParts = self.shpFile.__readNumParts()
+        self.numPoints = self.shpFile.__readNumPoints()
+        self.parts = self.shpFile.__readParts(self.numParts)
+        self.partTypes = self.shpFile.__readParts(self.numParts)
+        self.points = self.shpFile.__readPoints(self.numPoints)
         self.zBounds = self.shpFile._readZBounds()
         self.zArray = self.shpFile._readZArray(self.numPoints)
         self.mBounds = self.shpFile._readZBounds()
@@ -242,9 +236,9 @@ class ShpMultiPoint(ShpFeature):
         ShpFeature.__init__(self, ShpFile, recordNumber)
         self.parts[0]
         self.numParts = 1
-        self.boundingBox = self.shpFile.readBoundingBox()
-        self.numPoints = self.shpFile.readNumPoints()
-        self.points = self.shpFile.readPoints(self.numPoints)
+        self.boundingBox = self.shpFile._readBoundingBox()
+        self.numPoints = self.shpFile._readNumPoints()
+        self.points = self.shpFile._readPoints(self.numPoints)
     
 class ShpMultiPointM(ShpMultiPoint):
     
@@ -271,11 +265,11 @@ class ShpPolyLine(ShpFeature):
         
         ShpFeature.__init__(self, ShpFile, recordNumber)
         
-        self.boundingBox = self.shpFile.readBoundingBox()
-        self.numParts = self.shpFile.readNumParts()
-        self.numPoints = self.shpFile.readNumPoints()
-        self.parts = self.shpFile.readParts(self.numParts)
-        self.points = self.shpFile.readPoints(self.numPoints)
+        self.boundingBox = self.shpFile._readBoundingBox()
+        self.numParts = self.shpFile._readNumParts()
+        self.numPoints = self.shpFile._readNumPoints()
+        self.parts = self.shpFile.__readParts(self.numParts)
+        self.points = self.shpFile._readPoints(self.numPoints)
     
 class ShpPolyLineM(ShpPolyLine):
     
@@ -304,11 +298,11 @@ class ShpPolygon(ShpFeature):
         
         ShpFeature.__init__(self, ShpFile, recordNumber)
         
-        self.boundingBox = self.shpFile.readBoundingBox()
-        self.numParts = self.shpFile.readNumParts()
-        self.numPoints = self.shpFile.readNumPoints()
-        self.parts = self.shpFile.readParts(self.numParts)
-        self.points = self.shpFile.readPoints(self.numPoints)
+        self.boundingBox = self.shpFile._readBoundingBox()
+        self.numParts = self.shpFile._readNumParts()
+        self.numPoints = self.shpFile._readNumPoints()
+        self.parts = self.shpFile._readParts(self.numParts)
+        self.points = self.shpFile._readPoints(self.numPoints)
 
 class ShpPolygonM(ShpPolygon):
     
